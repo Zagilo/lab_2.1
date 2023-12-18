@@ -1,38 +1,106 @@
-#include "worker.h"
+#include"Worker.h"
 
-WORKER::WORKER() : name(""), position(""), year(0) {
-    std::cout << "Default constructor called for WORKER" << std::endl;
+Worker::Worker(std::string& full_name, std::string& post, int& year_of_admission)
+{
+	this->full_name_ = full_name;
+	this->post_ = post;
+	this->year_of_admission_ = year_of_admission;
+}
+Worker::Worker()
+{
+	std::cout << "Вызван конструктор по умолчанию Worker\n";
+	full_name_ = "";
+	post_ = "";
+	year_of_admission_ = 0;
 }
 
-WORKER::WORKER(std::string name, std::string position, int year)
-    : name(name), position(position), year(year) {
-    std::cout << "Parameterized constructor called for WORKER" << std::endl;
+Worker::Worker(Worker& copy)
+{
+	std::cout << "Вызван конструктор копирования Worker\n";
+	*this = copy;
 }
 
-WORKER::WORKER(const WORKER& other)
-    : name(other.name), position(other.position), year(other.year) {
-    std::cout << "Copy constructor called for WORKER" << std::endl;
+Worker::~Worker()
+{
+	std::cout << "Вызван деструктор Worker\n";
 }
 
-WORKER::~WORKER() {
-    std::cout << "Destructor called for WORKER" << std::endl;
-}
-int WORKER::getExperience(int currentYear) const {
-    return currentYear - year;
-}
-void WORKER::setName(const std::string& name) { this->name = name; }
-void WORKER::setPosition(const std::string& position) { this->position = position; }
-void WORKER::setYear(int year) { this->year = year; }
-std::string WORKER::getName() const { return name; }
-std::string WORKER::getPosition() const { return position; }
-int WORKER::getYear() const { return year; }
-
-std::ostream& operator<<(std::ostream& os, const WORKER& worker) {
-    os << "Name: " << worker.name << ", Position: " << worker.position << ", Year: " << worker.year;
-    return os;
+std::string Worker::GetFullName()
+{
+	return this->full_name_;
 }
 
-std::istream& operator>>(std::istream& is, WORKER& worker) {
-    is >> worker.name >> worker.position >> worker.year;
-    return is;
+int Worker::GetYearOfAdmission()
+{
+	return this->year_of_admission_;
+}
+
+std::string Worker::GetPost()
+{
+	return this->post_;
+}
+
+void Worker::SetFullName(std::string full_name)
+{
+	this->full_name_ = full_name;
+}
+
+void Worker::SetYearOfAdmission(int year_of_admission)
+{
+	this->year_of_admission_ = year_of_admission;
+}
+
+void Worker::SetPost(std::string post)
+{
+	this->post_ = post;
+}
+
+Worker& Worker::operator=(Worker& copy)
+{
+	this->full_name_ = copy.full_name_;
+	this->post_ = copy.post_;
+	this->year_of_admission_ = copy.year_of_admission_;
+	return *this;
+}
+
+std::istream& operator>>(std::istream& in, Worker& object)
+{
+	setlocale(LC_ALL, "russian");
+	std::cout << "Enter the data\n";
+	std::cout << "ФИО: ";
+	getchar();
+	std::getline(std::cin, object.full_name_);
+	std::cout << "Должность: ";
+	std::getline(std::cin, object.post_);
+	int check, this_year = 2023;
+	while (1)
+	{
+		std::cout << "Год поступления на работу: ";
+
+		if (std::cin >> check)
+		{
+			if (check > 0 && check <= this_year)
+			{
+				object.year_of_admission_ = check;
+				getchar();
+				break;
+			}
+		}
+		else
+		{
+			std::cout << "Incorrect value\n";
+			std::cin.clear();
+			std::cin.ignore(1024, '\n');
+		}
+	}
+	return in;
+}
+
+std::ostream& operator<<(std::ostream& out, Worker& object)
+{
+	setlocale(LC_ALL, "russian");
+	out << "ФИО: " << object.full_name_ << std::endl;
+	out << "Должность: " << object.post_ << std::endl;
+	out << "Год поступления на работу: " << object.year_of_admission_ << std::endl;
+	return out;
 }

@@ -128,12 +128,15 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="ConsoleApplication2.cpp" />
+    <ClCompile Include="keeper.cpp" />
+    <ClCompile Include="tusk2.cpp" />
     <ClCompile Include="Worker.cpp" />
-    <ClCompile Include="worker_manager.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="keeper.h" />
+    <ClInclude Include="menu.h" />
+    <ClInclude Include="tusk2.h" />
     <ClInclude Include="Worker.h" />
-    <ClInclude Include="worker_manager.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

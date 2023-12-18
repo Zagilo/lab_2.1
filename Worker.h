@@ -1,34 +1,25 @@
 #pragma once
-
 #include <iostream>
 #include <string>
-#include <vector>
-#include <algorithm>
-
-class WORKER {
-
-private:
-    std::string name; // ФИО работника
-    std::string position; // название занимаемой должности
-    int year; // год поступления на работу
-
+#include <exception>
+class Worker
+{
 public:
-    WORKER();
-    WORKER(std::string name, std::string position, int year);
-    WORKER(const WORKER& other);
-    ~WORKER();
-
-    void setName(const std::string& name);
-    void setPosition(const std::string& position);
-    void setYear(int year);
-    std::string getName() const;
-    std::string getPosition() const;
-    int getYear() const;
-    int getExperience(int currentYear) const;
-
-    friend std::ostream& operator<<(std::ostream& os, const WORKER& worker);
-    friend std::istream& operator>>(std::istream& is, WORKER& worker);
-
-    // Статический метод для сортировки по ФИО
-    static bool compareByName(const WORKER& a, const WORKER& b);
+	Worker();
+	friend std::ostream& operator<< (std::ostream& out, Worker& object);
+	friend std::istream& operator>> (std::istream& in, Worker& object);
+	Worker(std::string& full_name, std::string& post, int& year_of_admission);
+	~Worker();
+	Worker(Worker& copy);
+	Worker& operator =(Worker& copy);
+	std::string GetFullName();
+	int GetYearOfAdmission();
+	std::string GetPost();
+	void SetFullName(std::string full_name);
+	void SetYearOfAdmission(int year_of_admission);
+	void SetPost(std::string post);
+private:
+	std::string full_name_;
+	std::string post_;
+	int year_of_admission_;
 };
